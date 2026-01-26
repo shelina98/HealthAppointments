@@ -1,8 +1,16 @@
-<mat-toolbar color="primary" class="nav-container">
-  <img src="Logo.png" width="75px" >
+<mat-toolbar color="primary" class="nav-container" style="background-color: lightblue;">
+  <img src="Logo.png" width="100px">
   
-  <span class="spacer"></span>
+    <span class="example-spacer"></span>
+    <button  matButton class="example-icon login-icon" aria-label="Example icon-button with heart icon" >
+    <mat-icon>login</mat-icon> Login
+    </button>
+    <button matButton  class="example-icon" aria-label="Example icon-button with share icon">
+     Are you a doctor?
+     </button>
 
-  <a mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+  <button>
+   
+  </button> 
 
 </mat-toolbar>
