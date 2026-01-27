@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Firestore, collection} from '@angular/fire/firestore';
+import { AuthService } from '../auth/auth-service';
 
 @Component({
   selector: 'app-login-component',
@@ -28,6 +29,7 @@ export class LoginComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private firestore = inject(Firestore);
+  private auth = inject(AuthService)
 
 
   loginForm = this.fb.group({
@@ -36,8 +38,7 @@ export class LoginComponent {
   });
 
   onSubmit() {
-      console.log('Logging in...', this.loginForm.value);
-      console.log(collection(this.firestore,'users'));
+     this.auth.login();
  }
 
 
