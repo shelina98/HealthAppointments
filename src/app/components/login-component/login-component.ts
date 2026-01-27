@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Firestore, collection} from '@angular/fire/firestore';
-import { AuthService } from '../auth/auth-service';
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-login-component',
