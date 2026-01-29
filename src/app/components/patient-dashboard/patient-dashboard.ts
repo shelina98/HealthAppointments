@@ -10,6 +10,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { toSignal } from '@angular/core/rxjs-interop';
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+
 
 
 @Component({
@@ -19,7 +21,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
     MatListModule, 
     MatCardModule, 
     MatButtonModule, 
-    MatIconModule],
+    MatIconModule,
+    MatSnackBarModule],
   templateUrl: './patient-dashboard.html',
   styleUrl: './patient-dashboard.css',
 })
@@ -29,6 +32,7 @@ export class PatientDashboard {
   user = this.auth.user;
 
   private firestore = inject(Firestore);
+  private snackBar = inject(MatSnackBar);
 
   // Firestore stream filtered for "doctor" role
   private docs$ = collectionData(
@@ -40,6 +44,22 @@ export class PatientDashboard {
 
   doctors = toSignal(this.docs$, { initialValue: [] });
 
+   onBookClick(): void
+ {
+     if(this.user()) {
+      console.log(this.user)
+
+     }else {
+
+       this.snackBar.open('You should log in to book appointment.', 'OK', {
+                        duration: 2000,
+                        panelClass: ['blue-snackbar', 'login-snackbar'],
+                      })
+     }
+ }
+
 }
+
+
 
 
