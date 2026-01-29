@@ -11,6 +11,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { BookAppointmentComponent } from '../book-appointment-component/book-appointment-component';
 
 
 
@@ -22,7 +24,8 @@ import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
     MatCardModule, 
     MatButtonModule, 
     MatIconModule,
-    MatSnackBarModule],
+    MatSnackBarModule,
+    MatDialogModule],
   templateUrl: './patient-dashboard.html',
   styleUrl: './patient-dashboard.css',
 })
@@ -33,6 +36,7 @@ export class PatientDashboard {
 
   private firestore = inject(Firestore);
   private snackBar = inject(MatSnackBar);
+  private dialog = inject(MatDialog)
 
   // Firestore stream filtered for "doctor" role
   private docs$ = collectionData(
@@ -44,10 +48,13 @@ export class PatientDashboard {
 
   doctors = toSignal(this.docs$, { initialValue: [] });
 
-   onBookClick(): void
+   onBookClick(doc:any): void
  {
-     if(this.user()) {
-      console.log(this.user)
+   
+
+  if (this.user()) {
+   
+     this.openBookingDialog(doc)
 
      }else {
 
@@ -58,8 +65,16 @@ export class PatientDashboard {
      }
  }
 
+
+ openBookingDialog(doc: any) {
+     // OPEN THE DIALOG HERE
+    this.dialog.open(BookAppointmentComponent, {
+      width: '500px',
+      data: { 
+        doctor: doc, 
+        patient: this.user() 
+      }
+    });
 }
 
-
-
-
+}
