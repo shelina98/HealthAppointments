@@ -2,15 +2,41 @@
   <img src="Logo.png" width="100px">
   
     <span class="example-spacer"></span>
-    <button  matButton class="example-icon login-icon" routerLink="/login" >
-    <mat-icon>login</mat-icon> Login
-    </button>
-    <button matButton  class="example-icon" routerLink="/login">
-     Are you a doctor?
-     </button>
 
-  <button>
-   
-  </button> 
+    @if(isDoctor()) {
+
+    <button mat-button routerLink="/doctor-profile">
+      <mat-icon>account_circle</mat-icon> 
+     <span class="user-name">{{ auth.user()?.name }}</span>
+    </button>
+    
+    <button mat-button routerLink="/doctor-appointments">
+      <mat-icon>event</mat-icon> Appointments
+    </button>
+    }
+
+      @if(isPatient()){
+      <button mat-button routerLink="/patient-appointments">
+      <mat-icon>event</mat-icon> Appointments
+      </button>
+      <button mat-button routerLink="/medical-history">
+      <mat-icon>history</mat-icon> Medical History
+      </button>
+
+}
+    
+   @if(!isLoggedIn())  {
+    <button mat-button routerLink="/login">
+      <mat-icon>login</mat-icon> Login
+    </button>
+   }
+    @else {
+    <button mat-button (click)="auth.logout()">
+      <mat-icon>logout</mat-icon> Logout
+    </button>
+    }
+    
+  
+
 
 </mat-toolbar>
