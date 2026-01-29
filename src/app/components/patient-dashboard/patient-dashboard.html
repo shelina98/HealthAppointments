@@ -1,1 +1,37 @@
-<p>patient-dashboard works!</p>
+
+
+ <mat-sidenav-container class="container">
+      <mat-sidenav mode="side" opened class="left-section">
+      <header class="main-header">
+        @if(!!user()?.name){Welcome, {{user()?.name}}}
+
+          <h1>Find Your Specialist</h1>
+      </header>
+      
+        <div class="card-grid">
+          @for (doc of doctors(); track doc.id) {
+            <mat-card class="doctor-card" appearance="outlined">
+              <img mat-card-image [src]="doc.imgUrl || 'defaultDocImage.jpg'" [alt]="doc.name">
+              
+              <mat-card-content>
+                <div class="speciality">{{ doc.category }}</div>
+                <h2 class="name">{{ doc.name }}</h2>
+              </mat-card-content>
+
+              <mat-card-actions>
+                <button mat-flat-button color="primary" class="full-width">
+                  Book Appointment
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          } @empty {
+            <p>Loading doctors...</p>
+          }
+        </div>
+      </mat-sidenav>
+
+      <mat-sidenav-content class="right-section">
+              details
+      </mat-sidenav-content>
+ </mat-sidenav-container>
+
