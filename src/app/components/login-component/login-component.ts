@@ -25,7 +25,9 @@ import { AuthService } from '../../auth/auth-service';
 export class LoginComponent {
 
   private fb = inject(FormBuilder);
-  private auth = inject(AuthService)
+  private auth = inject(AuthService);
+  correctCredentials = this.auth.correctCredentials;
+
 
 
   loginForm = this.fb.group({

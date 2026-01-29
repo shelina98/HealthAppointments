@@ -17,6 +17,8 @@ export class AuthService {
 
   user = computed(() => this.currentUser());
   isLoggedIn = computed(() => !!this.currentUser());
+  correctCredentials : boolean = true;
+
 
   isDoctor = computed(() => this.currentUser()?.role === 'doctor');
   isPatient = computed(() => this.currentUser()?.role === 'patient');
@@ -50,13 +52,18 @@ export class AuthService {
 
       if (!foundUser) {
        console.log('User does not exists./ your email maight be wrong')
+      this.correctCredentials = false
         return;
       }
 
       if (foundUser.password !== credentials.password) {
+              this.correctCredentials = false
+
         console.log('wrong password')
         return;
       }
+
+        this.correctCredentials = true
 
       this.setUser(foundUser);
       console.log("Login successful!", foundUser);
