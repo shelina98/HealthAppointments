@@ -34,7 +34,7 @@ export class LoginComponent {
   });
 
   onSubmit() {
-     this.auth.login();
+     this.auth.login(this.loginForm.value);
  }
 
 
