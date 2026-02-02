@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, getDocs, doc, setDoc, deleteDoc, } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, getDocs, doc, setDoc, deleteDoc, updateDoc, } from '@angular/fire/firestore';
 import { User } from './models/users';
 import { Appointments } from './models/appointments';
 @Injectable({
@@ -38,5 +38,12 @@ export class AppointmentService {
   async deleteAppointment(apptId: string) {
   const docRef = doc(this.firestore, 'Appointments', apptId);
   return deleteDoc(docRef);
+}
+
+ async confirmAppointment(apptId: string) {
+  const docRef = doc(this.firestore, 'Appointments', apptId);
+  await  updateDoc(docRef, {
+  status: 'scheduled'
+  });
 }
 }

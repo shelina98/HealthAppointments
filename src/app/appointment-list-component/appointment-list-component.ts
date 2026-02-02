@@ -47,7 +47,7 @@ export class AppointmentListComponent {
 
 
   accept(id:string) {
-
+this.appointService.confirmAppointment(id)
   }
   decline(id:string) {
         this.appointService.deleteAppointment(id)
