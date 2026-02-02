@@ -46,10 +46,11 @@ export class AppointmentListComponent {
   }
 
 
-  accept(a:any) {
+  accept(id:string) {
 
   }
-  decline(a:any) {
-    
+  decline(id:string) {
+        this.appointService.deleteAppointment(id)
+
   }
 }
