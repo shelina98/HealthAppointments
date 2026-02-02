@@ -1,13 +1,31 @@
 
 <div class="list-appointment-wrapper">
   <div class="container">
+    @if(isDoctorSchedule()) {
+    <h2 class="title">Schedule Appointments</h2>
+
+    }
+    @else 
+    {
+
     <h2 class="title">Appointment Requests</h2>
+
+    }
+  
 
     <div class="appointment-list">
       @for (appt of appoitments(); track appt.id) {
         <div class="appointment-item">
-          
-          <div class="actions">
+
+           @if(isDoctorSchedule()) {
+
+          <button mat-raised-button color="accent" (click)="startAppointment(appt.id)">
+            <mat-icon>play_arrow</mat-icon> Start
+         </button>
+
+           } @else {
+
+              <div class="actions">
               <button mat-mini-fab color="primary" (click)="accept(appt.id)" matTooltip="Accept">
                 <mat-icon>check</mat-icon>
               </button>
@@ -16,6 +34,10 @@
               </button>
             
           </div>
+
+           }
+          
+     
 
           <div class="content">
             <span class="patient-name">{{ appt.patientName }}</span>
