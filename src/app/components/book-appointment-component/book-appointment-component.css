@@ -1,0 +1,14 @@
+.mat-dialog-header {
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.full-width {
+  width: 100%;
+  margin-top: 10px;
+}
+
+h2 {
+  font-weight: bold;
+  color: #3f51b5;
+}
