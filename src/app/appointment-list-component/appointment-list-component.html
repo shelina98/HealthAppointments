@@ -1,0 +1,43 @@
+
+<div class="list-appointment-wrapper">
+  <div class="container">
+    <h2 class="title">Appointment Requests</h2>
+
+    <div class="appointment-list">
+      @for (appt of appoitments(); track appt.id) {
+        <div class="appointment-item">
+          
+          <div class="actions">
+              <button mat-mini-fab color="primary" (click)="accept(appt.id)" matTooltip="Accept">
+                <mat-icon>check</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn" (click)="decline(appt.id)" matTooltip="Decline">
+                <mat-icon>close</mat-icon>
+              </button>
+            
+          </div>
+
+          <div class="content">
+            <span class="patient-name">{{ appt.patientName }}</span>
+            <div class="appointment-details">
+              <mat-icon>calendar_today</mat-icon> {{ appt.date }} 
+              <mat-icon>schedule</mat-icon> {{ appt.time }}
+            </div>
+          </div>
+
+          <div class="status-badge">
+            <span class="badge" [attr.data-status]="appt.status">
+              {{ appt.status }}
+            </span>
+          </div>
+
+        </div>
+      } @empty {
+        <div class="empty-state">
+          <mat-icon>event_note</mat-icon>
+          <p>No appointments found.</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>
