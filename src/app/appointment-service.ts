@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, getDocs, doc, setDoc, } from '@angular/fire/firestore';
 import { User } from './models/users';
+import { Appointments } from './models/appointments';
 @Injectable({
   providedIn: 'root',
 })
@@ -9,10 +10,10 @@ export class AppointmentService {
   private firestore = inject(Firestore);
 
   async createAppointmentRequest(patient: User, doctor: User, appointmentBody: any) {
-    const apptCollection = collection(this.firestore, 'Appointments');
+    const NewApptDoc = doc(collection(this.firestore, 'Appointments'));
     const formattedDate = appointmentBody.date instanceof Date ? appointmentBody.date.toISOString().split('T')[0] : appointmentBody.date;
-    await addDoc(apptCollection, {
-      id: apptCollection.id,
+    await setDoc(NewApptDoc, {
+      id: NewApptDoc.id,
       patientId: patient.id,
       patientName: patient.name,
       doctorId: doctor.id,
@@ -25,4 +26,13 @@ export class AppointmentService {
       console.log('finish')
     });
   }
+
+  
+  async getAppointments(): Promise<Appointments[]> {
+    const querySnapshot = await getDocs(collection(this.firestore, "Appointments"));
+    return querySnapshot.docs.map(doc => ({
+      ...doc.data()
+    })) as Appointments[];
+  }
+
 }
