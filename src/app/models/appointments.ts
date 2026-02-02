@@ -6,4 +6,6 @@ export interface Appointments {
     patientName:string;
     status:string;
     symptoms:string;
+    date: string;
+    time: string;
 }
