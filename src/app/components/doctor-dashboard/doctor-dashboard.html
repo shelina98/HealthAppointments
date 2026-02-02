@@ -1,1 +1,13 @@
-<p>doctor-dashboard works!</p>
+
+<div>
+     @for (a of appoitments(); track a.id) {
+         <mat-card appearance="outlined">
+              
+              <mat-card-content>
+                <div >{{ a.date }}</div>
+                <h2 class="name">{{ a.docName }}</h2>
+              </mat-card-content>
+
+            </mat-card>
+     }
+</div>
