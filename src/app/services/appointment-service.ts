@@ -3,7 +3,7 @@ import { Firestore, collection, addDoc, getDocs, doc, setDoc, deleteDoc, updateD
 import { User } from '../models/users';
 import { Appointments } from '../models/appointments';
 import { Observable } from 'rxjs';
-import { Router } from 'express';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })

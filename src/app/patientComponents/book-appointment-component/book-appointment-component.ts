@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule, MatNativeDateModule} from '@angular/material/core'; 
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-book-appointment-component',
@@ -33,6 +34,7 @@ export class BookAppointmentComponent {
   private apptService = inject(AppointmentService);
 
   public dialogRef = inject(MatDialogRef<BookAppointmentComponent>);
+  private snackBar = inject(MatSnackBar)
   
   // Data passed from your button: { patient: any, doctor: any }
   data = inject(MAT_DIALOG_DATA);
@@ -86,8 +88,17 @@ export class BookAppointmentComponent {
           this.data.patient, 
           this.data.doctor, 
           {symptoms, date, time}
-        );
+        ).then(
+       ()=>{
+    this.snackBar.open('You have successfully book the appointment', 'OK', {
+                        duration: 2000,
+                        panelClass: ['blue-snackbar', 'login-snackbar'],
+                      })
         this.dialogRef.close(true);
+      }
+
+        );
+        
       } catch (error) {
         console.error("Error saving to Firestore:", error);
       }
