@@ -13,6 +13,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BookAppointmentComponent } from '../book-appointment-component/book-appointment-component';
+import { UserService } from '../../services/user-service';
 
 
 
@@ -32,32 +33,28 @@ import { BookAppointmentComponent } from '../book-appointment-component/book-app
 export class PatientDashboard {
 
   auth= inject(AuthService);
+
+  userService = inject(UserService)
+
   user = this.auth.user;
 
-  private firestore = inject(Firestore);
   private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog)
 
-  // Firestore stream filtered for "doctor" role
-  private docs$ = collectionData(
-    query(collection(this.firestore, 'Users'), where('role', '==', 'doctor')), 
-    { idField: 'id' }
-  ) as Observable<any[]>;
 
   // Signal holding our doctor list
+   doctors = toSignal(this.userService.getDoctors(), { initialValue: [] });
 
-  doctors = toSignal(this.docs$, { initialValue: [] });
-
+   
    onBookClick(doc:any): void
  {
-   
-
-  if (this.user()) {
-   
+  
+  if (this.user()) 
+    {
      this.openBookingDialog(doc)
-
-     }else {
-
+     }
+     else 
+      {
        this.snackBar.open('You should log in to book appointment.', 'OK', {
                         duration: 2000,
                         panelClass: ['blue-snackbar', 'login-snackbar'],
