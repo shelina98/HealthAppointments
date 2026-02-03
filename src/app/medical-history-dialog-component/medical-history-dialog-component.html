@@ -21,7 +21,7 @@
 
 
     <mat-dialog-actions style="align-items: end;">
-      <button mat-raised-button color="primary" [disabled]="medicalForm.invalid" (click)="save()">
+      <button mat-raised-button color="primary" [disabled]="medicalForm.invalid" (click)="save(medicalForm.value)">
          Save
       </button>
     </mat-dialog-actions>

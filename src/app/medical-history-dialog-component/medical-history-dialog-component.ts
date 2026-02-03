@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MedicalService } from '../medical-service';
 
 @Component({
   selector: 'app-medical-history-dialog-component',
@@ -19,6 +20,7 @@ export class MedicalHistoryDialogComponent {
   data = inject(MAT_DIALOG_DATA)
 
   private apptService = inject(AppointmentService);
+  private medicalService = inject(MedicalService)
 
   fb = inject(FormBuilder)
 
@@ -29,7 +31,11 @@ export class MedicalHistoryDialogComponent {
   });
 
   
- save() {
+ async save(medicalForm:any) {
+
+   await this.medicalService.createMedicalHistory(medicalForm);
+            this.dialogRef.close(true);
+
 
  }
  
