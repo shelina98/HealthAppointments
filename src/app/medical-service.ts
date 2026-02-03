@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { collection, doc, Firestore, setDoc } from '@angular/fire/firestore';
+import { collection, doc, Firestore, getDocs, orderBy, query, setDoc, where } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -26,5 +26,20 @@ export class MedicalService {
     });
   }
 
+
+  async getPatientHistory(patientId: string) {
+
+  const historyRef = collection(this.firestore, 'MedicalHistory');
+  const q = query(
+    historyRef, 
+    where('patId', '==', patientId),
+    orderBy('date', 'desc') 
+  );
   
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+}
+
+  
+
 }
