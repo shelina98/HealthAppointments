@@ -1,13 +1,19 @@
-import { inject, Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, getDocs, doc, setDoc, deleteDoc, updateDoc, query, where, } from '@angular/fire/firestore';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { Firestore, collection, addDoc, getDocs, doc, setDoc, deleteDoc, updateDoc, query, where, collectionData, } from '@angular/fire/firestore';
 import { User } from '../models/users';
 import { Appointments } from '../models/appointments';
+import { Observable } from 'rxjs';
+import { Router } from 'express';
 @Injectable({
   providedIn: 'root',
 })
 export class AppointmentService {
   
   private firestore = inject(Firestore);
+
+  router = inject(Router)
+  currentUrl = signal(this.router.url);
+  isDoctorSchedule = computed(() => this.currentUrl().includes('/doctor-schedule'));
 
   async createAppointmentRequest(patient: User, doctor: User, appointmentBody: any) {
     const NewApptDoc = doc(collection(this.firestore, 'Appointments'));
@@ -27,12 +33,15 @@ export class AppointmentService {
     });
   }
 
-  
-  async getAppointments(): Promise<Appointments[]> {
-    const querySnapshot = await getDocs(collection(this.firestore, "Appointments"));
-    return querySnapshot.docs.map(doc => ({
-      ...doc.data()
-    })) as Appointments[];
+
+
+  getAppointments(): Observable<Appointments[]> {
+   const doctorsRef = collection(this.firestore, 'Appointments');
+   const q = query(doctorsRef, where('role', '==', 'doctor'),
+   where('status',this.isDoctorSchedule()? 'in':'==', this.isDoctorSchedule()? ['scheduled', 'ongoing']: 'requested'),
+)
+   return collectionData(q, { idField: 'id' }) as Observable<Appointments[]>;
+   
   }
 
   async deleteAppointment(apptId: string) {

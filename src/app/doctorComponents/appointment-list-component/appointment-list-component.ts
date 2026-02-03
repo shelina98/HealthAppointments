@@ -29,27 +29,16 @@ export class AppointmentListComponent {
 
   auth = inject(AuthService)
   appointService = inject(AppointmentService)
+  
   firestore = inject(Firestore)
   user = this.auth.user
-  router = inject(Router)
+
+  isDoctorSchedule = this.appointService.isDoctorSchedule
+
 
   dialog = inject(MatDialog)
 
-  currentUrl = signal(this.router.url);
-
-  isDoctorSchedule = computed(() => this.currentUrl().includes('/doctor-schedule'));
-
-  // Firestore stream filtered for requested appoint
-  private docs$ = collectionData(
-    query(collection(this.firestore, 'Appointments'),
-     where('status',this.isDoctorSchedule()? 'in':'==', this.isDoctorSchedule()? ['scheduled', 'ongoing']: 'requested'),
-     where('doctorId','==',this.user()?.id)),
-    { idField: 'id' }
-  ) as Observable<Appointments[]>;
-
-  // Signal holding our doctor list
-
-  appoitments = toSignal(this.docs$, { initialValue: [] });
+  appoitments = toSignal(this.appointService.getAppointments(), { initialValue: [] });
 
 
   ngOnInit( ){
