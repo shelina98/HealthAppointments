@@ -3,6 +3,7 @@ import { Firestore, collection } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { User } from '../models/users';
 import { query, where, limit, getDocs  } from '@angular/fire/firestore';
+import { UserService } from './user-service';
 
 
 @Injectable({
@@ -11,11 +12,12 @@ import { query, where, limit, getDocs  } from '@angular/fire/firestore';
 export class AuthService {
 
   private router = inject(Router);
-  private firestore = inject(Firestore)
+  private userService = inject(UserService);
 
   private currentUser = signal<User | null>(null);
-
   user = computed(() => this.currentUser());
+
+
   isLoggedIn = computed(() => !!this.currentUser());
   correctCredentials : boolean = true;
 
@@ -31,29 +33,20 @@ export class AuthService {
   logout() {
     this.currentUser.set(null);
     this.router.navigate(['/']);
-    }
-
-
-  async getUsers(): Promise<User[]> {
-    const querySnapshot = await getDocs(collection(this.firestore, "Users"));
-    return querySnapshot.docs.map(doc => ({
-      ...doc.data()
-    })) as User[];
   }
-
 
   async login(credentials: Partial<{
     email: string | null;
     password: string | null;
 }>) {
     try {
-      const allUsers = await this.getUsers();
+      const allUsers = await this.userService.getUsers();
       const foundUser = allUsers.find(u => u.email === credentials.email);
 
       if (!foundUser) {
-       console.log('User does not exists./ your email maight be wrong')
+      console.log('User does not exists./ your email maight be wrong')
       this.correctCredentials = false
-        return;
+      return;
       }
 
       if (foundUser.password !== credentials.password) {
@@ -63,11 +56,12 @@ export class AuthService {
         return;
       }
 
-        this.correctCredentials = true
-
+      //succesful login
+      this.correctCredentials = true
       this.setUser(foundUser);
       console.log("Login successful!", foundUser);
       
+      //navigation
       if (foundUser.role === 'doctor') {
         this.router.navigate(['/doctor-dashboard']);
       } else {
