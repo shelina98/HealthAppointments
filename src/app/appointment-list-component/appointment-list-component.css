@@ -97,4 +97,5 @@
 
 .badge[data-status="requested"] { background: #e3f2fd; color: #1976d2; }
 .badge[data-status="scheduled"] { background: #e8f5e9; color: #2e7d32; }
+.badge[data-status="ongoing"] { background: #e8f5e9; color: #2e7d32; }
 .badge[data-status="cancelled"] { background: #ffebee; color: #c62828; }

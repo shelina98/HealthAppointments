@@ -42,7 +42,7 @@ export class AppointmentListComponent {
   // Firestore stream filtered for requested appoint
   private docs$ = collectionData(
     query(collection(this.firestore, 'Appointments'),
-     where('status', '==', this.isDoctorSchedule()? 'scheduled': 'requested'),
+     where('status',this.isDoctorSchedule()? 'in':'==', this.isDoctorSchedule()? ['scheduled', 'ongoing']: 'requested'),
      where('doctorId','==',this.user()?.id)),
     { idField: 'id' }
   ) as Observable<Appointments[]>;
