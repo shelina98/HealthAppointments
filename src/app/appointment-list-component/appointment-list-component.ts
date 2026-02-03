@@ -75,7 +75,9 @@ export class AppointmentListComponent {
       patientName: appt.patientName,
       patientId: appt.patientId,
       symptoms: appt.symptoms,
-      appoitmentID: appt.id
+      appoitmentID: appt.id,
+      docName: this.user()?.name,
+      docId: this.user()?.id,
     }
   });
 
