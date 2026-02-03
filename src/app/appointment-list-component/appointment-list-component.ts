@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MedicalHistoryDialogComponent } from '../medical-history-dialog-component/medical-history-dialog-component';
 
 
 @Component({
@@ -18,7 +20,8 @@ import { Router } from '@angular/router';
     CommonModule,
     MatButtonModule,
     MatIconModule,
-    MatTooltipModule, ],
+    MatTooltipModule,
+    MatDialogModule ],
   templateUrl: './appointment-list-component.html',
   styleUrl: './appointment-list-component.css',
 })
@@ -29,6 +32,8 @@ export class AppointmentListComponent {
   firestore = inject(Firestore)
   user = this.auth.user
   router = inject(Router)
+
+  dialog = inject(MatDialog)
 
   currentUrl = signal(this.router.url);
 
@@ -53,13 +58,25 @@ export class AppointmentListComponent {
 
 
   accept(id:string) {
-this.appointService.confirmAppointment(id)
+  this.appointService.confirmAppointment(id)
   }
   decline(id:string) {
-        this.appointService.deleteAppointment(id)
+  this.appointService.deleteAppointment(id)
 
   }
+
   startAppointment(id:string) {
+
+    // 1. Open the Medical History Dialog first
+   this.dialog.open(MedicalHistoryDialogComponent, {
+    width: '900px',
+    disableClose: true, // Prevent closing without saving
+    data: { 
+    }
+  });
+
+    this.appointService.startAppointment(id);
+
 
   }
 }

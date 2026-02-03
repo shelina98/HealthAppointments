@@ -47,6 +47,14 @@ export class AppointmentService {
   });
 }
 
+async startAppointment(apptId:string){
+   const docRef = doc(this.firestore, 'Appointments', apptId);
+  await  updateDoc(docRef, {
+  status: 'ongoing'
+  });
+
+}
+
 async getBusySlots(doctorId: string, date: string): Promise<string[]> {
     const apptRef = collection(this.firestore, 'Appointments');
     const q = query(
