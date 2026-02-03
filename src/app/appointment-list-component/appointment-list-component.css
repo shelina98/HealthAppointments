@@ -3,12 +3,23 @@
   justify-content: center;
   padding: 40px 20px;
   background-color: #f5f7f9;
-  min-height: 100vh;
+  max-height: calc(100vh - 64px);
+  overflow-y: hidden;
 }
 
 .container {
   width: 100%;
   max-width: 800px; /* Limits width to keep it centered and readable */
+  max-height: calc(100vh - 64px);
+  overflow: hidden;
+
+}
+
+.appointment-list {
+  max-height: 400px;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e0 #f5f7f9;
+  overflow-y: scroll;
 }
 
 .title {
