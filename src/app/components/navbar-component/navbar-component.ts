@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule} from '@angular/material/icon';
 import { MatDividerModule} from '@angular/material/divider'
 import { RouterLink, RouterLinkActive} from '@angular/router'
-import { AuthService } from '../../auth/auth-service';
+import { AuthService } from '../../services/auth-service';
 import { UserRole } from '../../models/users';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { AuthService } from '../auth/auth-service';
-import { MedicalService } from '../medical-service';
+import { AuthService } from '../services/auth-service';
+import { MedicalService } from '../services/medical-service';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';

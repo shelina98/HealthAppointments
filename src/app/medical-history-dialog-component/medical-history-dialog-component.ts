@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { AppointmentService } from '../appointment-service';
+import { AppointmentService } from '../services/appointment-service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MedicalService } from '../medical-service';
+import { MedicalService } from '../services/medical-service';
 
 @Component({
   selector: 'app-medical-history-dialog-component',

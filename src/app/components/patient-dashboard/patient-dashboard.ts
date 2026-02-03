@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { AuthService } from '../../auth/auth-service';
+import { AuthService } from '../../services/auth-service';
 import { collection, collectionData, Firestore, query, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../../models/users';
