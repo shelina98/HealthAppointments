@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, getDocs, doc, setDoc, deleteDoc, updateDoc, } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, getDocs, doc, setDoc, deleteDoc, updateDoc, query, where, } from '@angular/fire/firestore';
 import { User } from './models/users';
 import { Appointments } from './models/appointments';
 @Injectable({
@@ -46,4 +46,17 @@ export class AppointmentService {
   status: 'scheduled'
   });
 }
+
+async getBusySlots(doctorId: string, date: string): Promise<string[]> {
+    const apptRef = collection(this.firestore, 'Appointments');
+    const q = query(
+      apptRef,
+      where('doctorId', '==', doctorId),
+      where('date', '==', date ),
+      where('status', 'in', ['requested', 'scheduled','ongoing'])
+    );
+
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => doc.data()['time']);
+  }
 }
