@@ -65,17 +65,20 @@ export class AppointmentListComponent {
 
   }
 
-  startAppointment(id:string) {
+  startAppointment(appt:Appointments) {
 
     // 1. Open the Medical History Dialog first
    this.dialog.open(MedicalHistoryDialogComponent, {
     width: '900px',
     disableClose: true, // Prevent closing without saving
     data: { 
+      patientName: appt.patientName,
+      patientId: appt.patientId,
+      symptoms: appt.symptoms
     }
   });
 
-    this.appointService.startAppointment(id);
+    this.appointService.startAppointment(appt.id);
 
 
   }

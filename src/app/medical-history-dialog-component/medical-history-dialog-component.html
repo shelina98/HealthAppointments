@@ -1,1 +1,28 @@
-<p>medical-history-dialog-component works!</p>
+
+    <h2 mat-dialog-title class="title">Medical Session for {{data.patientName}}</h2>
+    <mat-dialog-content [formGroup]="medicalForm">
+
+      <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Symptoms</mat-label>
+      <textarea matInput formControlName="symptoms" readonly rows="3"></textarea>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Diagnosis</mat-label>
+        <textarea matInput formControlName="diagnosis" rows="3"></textarea>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Prescription / Treatment Plan</mat-label>
+        <textarea matInput formControlName="prescription" rows="3"></textarea>
+      </mat-form-field>
+    </mat-dialog-content>
+
+
+    <mat-dialog-actions style="align-items: end;">
+      <button mat-raised-button color="primary" [disabled]="medicalForm.invalid" (click)="save()">
+         Save
+      </button>
+    </mat-dialog-actions>
+  
