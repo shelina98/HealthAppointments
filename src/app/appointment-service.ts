@@ -55,6 +55,13 @@ async startAppointment(apptId:string){
 
 }
 
+async endAppointment(apptId:string) {
+   const docRef = doc(this.firestore, 'Appointments', apptId);
+  await  updateDoc(docRef, {
+  status: 'done'
+  });
+}
+
 async getBusySlots(doctorId: string, date: string): Promise<string[]> {
     const apptRef = collection(this.firestore, 'Appointments');
     const q = query(

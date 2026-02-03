@@ -32,10 +32,10 @@ export class MedicalHistoryDialogComponent {
 
   
  async save(medicalForm:any) {
-
-   await this.medicalService.createMedicalHistory(medicalForm);
-            this.dialogRef.close(true);
-
+   this.apptService.endAppointment(this.data.appoitmentID).then(async () => {
+  await this.medicalService.createMedicalHistory(medicalForm);
+  this.dialogRef.close(true);
+})
 
  }
  

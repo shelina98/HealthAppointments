@@ -74,7 +74,8 @@ export class AppointmentListComponent {
     data: { 
       patientName: appt.patientName,
       patientId: appt.patientId,
-      symptoms: appt.symptoms
+      symptoms: appt.symptoms,
+      appoitmentID: appt.id
     }
   });
 
