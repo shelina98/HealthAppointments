@@ -1,0 +1,42 @@
+.history-wrapper {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.date-chip {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.record-card {
+  border-radius: 24px;
+  border-top: 10px solid #1976d2;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+  padding: 20px;
+}
+
+.info-group {
+  margin-bottom: 25px;
+}
+
+.info-group label {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+

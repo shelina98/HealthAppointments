@@ -1,1 +1,39 @@
-<p>medical-history-component works!</p>
+<div class="history-wrapper">
+  @if (currentRecord()) {
+    <div class="nav-bar">
+      <button mat-icon-button (click)="prev()" [disabled]="currentIndex() === 0">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+
+      <div class="status">
+        <span class="date-chip">{{ currentRecord().date }}</span>
+        <p>Record {{ currentIndex() + 1 }} of {{ historyRecords().length }}</p>
+      </div>
+
+      <button mat-icon-button (click)="next()" [disabled]="currentIndex() === historyRecords().length - 1">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+
+    <mat-card class="record-card">
+      <mat-card-content>
+        <div class="info-group">
+          <label>Diagnosis</label>
+          <h2 class="diagnosis-text">{{ currentRecord().diagnosis }}</h2>
+        </div>
+
+        <div class="info-group">
+          <label>Symptoms</label>
+          <p class="symptoms-text">{{ currentRecord().symptoms }}</p>
+        </div>
+
+          <div class="info-group">
+          <label>PRESCRIPTION & PLAN</label>
+          <p class="symptoms-text">{{ currentRecord().prescription }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <div class="no-data">No medical history found.</div>
+  }
+</div>
