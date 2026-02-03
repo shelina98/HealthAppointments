@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AppointmentListComponent } from '../../appointment-list-component/appointment-list-component';
+import { AppointmentListComponent } from '../appointment-list-component/appointment-list-component';
 
 
 @Component({

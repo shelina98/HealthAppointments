@@ -1,9 +1,9 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { AuthService } from '../services/auth-service';
-import { AppointmentService } from '../services/appointment-service';
+import { AuthService } from '../../services/auth-service';
+import { AppointmentService } from '../../services/appointment-service';
 import { collection, collectionData, Firestore, query, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Appointments } from '../models/appointments';
+import { Appointments } from '../../models/appointments';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
