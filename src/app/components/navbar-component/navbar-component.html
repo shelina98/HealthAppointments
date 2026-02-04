@@ -1,40 +1,30 @@
-<mat-toolbar color="primary" class="nav-container" style="background-color: lightblue;">
-  <img src="Logo.png" width="100px">
-  
-    <span class="example-spacer"></span>
+<mat-toolbar color="primary" class="nav-container" style="background-color: lightblue">
+  <img src="Logo.png" width="100px" />
 
-    @if(isDoctor()) {
+  <span class="example-spacer"></span>
 
+  @if (isDoctor()) {
     <button mat-button routerLink="/doctor-profile">
-      <mat-icon>account_circle</mat-icon> 
-     <span class="user-name">{{ auth.user()?.name }}</span>
+      <mat-icon>account_circle</mat-icon>
+      <span class="user-name">{{ auth.user()?.name }}</span>
     </button>
-    
-    <button mat-button routerLink="/doctor-schedule">
-      <mat-icon>event</mat-icon> My Schedule
-    </button>
-    }
 
-      @if(isPatient()){
-     
-      <button mat-button routerLink="/medical-history">
+    <button mat-button routerLink="/doctor-dashboard">
+      <mat-icon>event</mat-icon> My Dashboard
+    </button>
+
+    <button mat-button routerLink="/doctor-schedule"><mat-icon>event</mat-icon> My Schedule</button>
+  }
+
+  @if (isPatient()) {
+    <button mat-button routerLink="/medical-history">
       <mat-icon>history</mat-icon> Medical History
-      </button>
-
-}
-    
-   @if(!isLoggedIn())  {
-    <button mat-button routerLink="/login">
-      <mat-icon>login</mat-icon> Login
     </button>
-   }
-    @else {
-    <button mat-button (click)="auth.logout()">
-      <mat-icon>logout</mat-icon> Logout
-    </button>
-    }
-    
-  
+  }
 
-
+  @if (!isLoggedIn()) {
+    <button mat-button routerLink="/login"><mat-icon>login</mat-icon> Login</button>
+  } @else {
+    <button mat-button (click)="auth.logout()"><mat-icon>logout</mat-icon> Logout</button>
+  }
 </mat-toolbar>

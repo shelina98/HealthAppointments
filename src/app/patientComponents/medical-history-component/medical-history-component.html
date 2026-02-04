@@ -6,11 +6,15 @@
       </button>
 
       <div class="status">
-        <span class="date-chip">{{ currentRecord().date }}</span>
+        <span class="date-chip">{{ currentRecord().date | date: 'dd MMMM yyyy HH:mm' }}</span>
         <p>Record {{ currentIndex() + 1 }} of {{ historyRecords().length }}</p>
       </div>
 
-      <button mat-icon-button (click)="next()" [disabled]="currentIndex() === historyRecords().length - 1">
+      <button
+        mat-icon-button
+        (click)="next()"
+        [disabled]="currentIndex() === historyRecords().length - 1"
+      >
         <mat-icon>chevron_right</mat-icon>
       </button>
     </div>
@@ -27,7 +31,7 @@
           <p class="symptoms-text">{{ currentRecord().symptoms }}</p>
         </div>
 
-          <div class="info-group">
+        <div class="info-group">
           <label>PRESCRIPTION & PLAN</label>
           <p class="symptoms-text">{{ currentRecord().prescription }}</p>
         </div>

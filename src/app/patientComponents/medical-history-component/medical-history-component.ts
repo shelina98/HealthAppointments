@@ -6,10 +6,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-medical-history-component',
-  imports: [MatCardModule, MatButtonModule, MatIconModule, MatDividerModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, MatDividerModule,DatePipe],
   templateUrl: './medical-history-component.html',
   styleUrl: './medical-history-component.css',
 })
@@ -26,7 +27,7 @@ export class MedicalHistoryComponent {
     const list = this.historyRecords();
     return list.length > 0 ? list[this.currentIndex()] : null;
   });
-  
+
 
   async ngOnInit() {
     const user = this.authService.user();
