@@ -3,7 +3,7 @@
   justify-content: center;
   padding: 40px 20px;
   background-color: #f5f7f9;
-  max-height: calc(100vh - 64px);
+  min-height: calc(100vh - 64px);
   overflow-y: hidden;
 }
 
@@ -12,7 +12,6 @@
   max-width: 800px; /* Limits width to keep it centered and readable */
   max-height: calc(100vh - 64px);
   overflow: hidden;
-
 }
 
 .appointment-list {
@@ -36,7 +35,7 @@
   margin-bottom: 15px;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s;
 }
 
@@ -95,7 +94,19 @@
   font-weight: bold;
 }
 
-.badge[data-status="requested"] { background: #e3f2fd; color: #1976d2; }
-.badge[data-status="scheduled"] { background: #e8f5e9; color: #2e7d32; }
-.badge[data-status="ongoing"] { background: #e8f5e9; color: #2e7d32; }
-.badge[data-status="cancelled"] { background: #ffebee; color: #c62828; }
+.badge[data-status='requested'] {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+.badge[data-status='scheduled'] {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.badge[data-status='ongoing'] {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.badge[data-status='cancelled'] {
+  background: #ffebee;
+  color: #c62828;
+}
