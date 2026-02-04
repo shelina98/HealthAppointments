@@ -12,7 +12,7 @@ export class AuthService {
   private router = inject(Router);
   private userService = inject(UserService);
 
-  private currentUser = signal<User | null>(this.getStoredUser());
+  public currentUser = signal<User | null>(this.getStoredUser());
   user = computed(() => this.currentUser());
 
   isLoggedIn = computed(() => !!this.currentUser());

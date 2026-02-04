@@ -6,11 +6,18 @@ import { DoctorDashboard } from './doctorComponents/doctor-dashboard/doctor-dash
 import { DocScheduleComponent } from './doctorComponents/doc-schedule-component/doc-schedule-component';
 import { authGuard } from './guards/auth-guard';
 import { roleGuardGuard } from './guards/role-guard-guard';
+import { patientguardGuard } from './guards/patientguard-guard';
+import { inject } from '@angular/core';
+import { AuthService } from './services/auth-service';
 
 export const routes: Routes = [
-  { path: '', component: PatientDashboard },
+  {
+    path: '',
+    component: PatientDashboard,
+    canActivate: [patientguardGuard],
+  },
 
-  { path: 'patient-dashboard', component: PatientDashboard },
+  { path: 'patient-dashboard', component: PatientDashboard, canActivate: [] },
 
   {
     path: 'doctor-dashboard',
@@ -24,7 +31,11 @@ export const routes: Routes = [
     canActivate: [authGuard, roleGuardGuard],
   },
 
-  { path: 'medical-history', component: MedicalHistoryComponent, canActivate: [authGuard] },
+  {
+    path: 'medical-history',
+    component: MedicalHistoryComponent,
+    canActivate: [authGuard, patientguardGuard],
+  },
 
   { path: 'login', component: LoginComponent },
 
