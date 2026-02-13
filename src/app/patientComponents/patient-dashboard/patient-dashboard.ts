@@ -10,68 +10,67 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { toSignal } from '@angular/core/rxjs-interop';
-import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BookAppointmentComponent } from '../book-appointment-component/book-appointment-component';
 import { UserService } from '../../services/user-service';
 
-
-
 @Component({
   selector: 'app-patient-dashboard',
-  imports: [CommonModule, 
-    MatSidenavModule, 
-    MatListModule, 
-    MatCardModule, 
-    MatButtonModule, 
+  imports: [
+    CommonModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule,
+    MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
-    MatDialogModule],
+    MatDialogModule,
+  ],
   templateUrl: './patient-dashboard.html',
   styleUrl: './patient-dashboard.css',
 })
 export class PatientDashboard {
+  auth = inject(AuthService);
 
-  auth= inject(AuthService);
-
-  userService = inject(UserService)
+  userService = inject(UserService);
 
   user = this.auth.user;
 
   private snackBar = inject(MatSnackBar);
-  private dialog = inject(MatDialog)
+  private dialog = inject(MatDialog);
+  doctors = toSignal(this.userService.getDoctors(), { initialValue: [] });
 
+  selectedId = computed(() => {
+    const firstDoctor = this.doctors()[0];
+    return firstDoctor ? firstDoctor.id : '';
+  });
 
-  // Signal holding our doctor list
-   doctors = toSignal(this.userService.getDoctors(), { initialValue: [] });
+  onDoctorCardSelection(doc: User) {
+    this.selectedId = computed(() => {
+      return doc.id;
+    });
+  }
 
-   
-   onBookClick(doc:any): void
- {
-  
-  if (this.user()) 
-    {
-     this.openBookingDialog(doc)
-     }
-     else 
-      {
-       this.snackBar.open('You should log in to book appointment.', 'OK', {
-                        duration: 2000,
-                        panelClass: ['blue-snackbar', 'login-snackbar'],
-                      })
-     }
- }
+  onBookClick(doc: any): void {
+    if (this.user()) {
+      this.openBookingDialog(doc);
+    } else {
+      this.snackBar.open('You should log in to book appointment.', 'OK', {
+        duration: 2000,
+        panelClass: ['blue-snackbar', 'login-snackbar'],
+      });
+    }
+  }
 
-
- openBookingDialog(doc: any) {
-     // OPEN THE DIALOG HERE
+  openBookingDialog(doc: any) {
+    // OPEN THE DIALOG HERE
     this.dialog.open(BookAppointmentComponent, {
       width: '500px',
-      data: { 
-        doctor: doc, 
-        patient: this.user() 
-      }
+      data: {
+        doctor: doc,
+        patient: this.user(),
+      },
     });
-}
-
+  }
 }

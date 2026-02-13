@@ -1,37 +1,39 @@
+<mat-sidenav-container class="container">
+  <mat-sidenav mode="side" opened class="left-section">
+    <header class="main-header">
+      @if (!!user()?.name) {
+        Welcome, {{ user()?.name }}
+      }
 
+      <h1>Find Your Specialist</h1>
+    </header>
 
- <mat-sidenav-container class="container">
-      <mat-sidenav mode="side" opened class="left-section">
-      <header class="main-header">
-        @if(!!user()?.name){Welcome, {{user()?.name}}}
+    <div class="card-grid">
+      @for (doc of doctors(); track doc.id) {
+        <mat-card
+          class="doctor-card"
+          appearance="outlined"
+          [class.selected]="doc.id === selectedId()"
+          (click)="onDoctorCardSelection(doc)"
+        >
+          <img mat-card-image [src]="doc.imgUrl || 'defaultDocImage.jpg'" [alt]="doc.name" />
 
-          <h1>Find Your Specialist</h1>
-      </header>
-      
-        <div class="card-grid">
-          @for (doc of doctors(); track doc.id) {
-            <mat-card class="doctor-card" appearance="outlined">
-              <img mat-card-image [src]="doc.imgUrl || 'defaultDocImage.jpg'" [alt]="doc.name">
-              
-              <mat-card-content>
-                <div class="speciality">{{ doc.category }}</div>
-                <h2 class="name">{{ doc.name }}</h2>
-              </mat-card-content>
+          <mat-card-content>
+            <div class="speciality">{{ doc.category }}</div>
+            <h2 class="name">{{ doc.name }}</h2>
+          </mat-card-content>
 
-              <mat-card-actions>
-                <button mat-flat-button color="primary" class="full-width" (click)="onBookClick(doc)">
-                <mat-icon>event</mat-icon>  <span> Book Appointment</span> 
-                </button>
-              </mat-card-actions>
-            </mat-card>
-          } @empty {
-            <p>Loading doctors...</p>
-          }
-        </div>
-      </mat-sidenav>
+          <mat-card-actions>
+            <button mat-flat-button color="primary" class="full-width" (click)="onBookClick(doc)">
+              <mat-icon>event</mat-icon> <span> Book Appointment</span>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      } @empty {
+        <p>Loading doctors...</p>
+      }
+    </div>
+  </mat-sidenav>
 
-      <mat-sidenav-content class="right-section">
-              details
-      </mat-sidenav-content>
- </mat-sidenav-container>
-
+  <mat-sidenav-content class="right-section"> details </mat-sidenav-content>
+</mat-sidenav-container>
