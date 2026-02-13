@@ -16,7 +16,12 @@
           [class.selected]="doc.id === selectedId()"
           (click)="onDoctorCardSelection(doc)"
         >
-          <img mat-card-image [src]="doc.imgUrl || 'defaultDocImage.jpg'" [alt]="doc.name" />
+          <img
+            mat-card-image
+            referrerpolicy="no-referrer"
+            [src]="doc.imgUrl || 'defaultDocImage.jpg'"
+            [alt]="doc.name"
+          />
 
           <mat-card-content>
             <div class="speciality">{{ doc.category }}</div>
