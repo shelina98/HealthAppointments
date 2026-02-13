@@ -8,6 +8,13 @@
   background: #f8f9fa;
   border-right: 1px solid #e0e0e0;
   padding: 20px 20px;
+  height: calc(100vh - 64px);
+  overflow-y: hidden;
+}
+
+::ng-deep .mat-drawer-inner-container {
+  width: 100%;
+  height: fit-content !important;
 }
 .sidebar-header {
   padding: 24px;
@@ -29,6 +36,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 24px;
+  scrollbar-width: thin;
+  height: calc(100vh - 160px);
+  scrollbar-color: #cbd5e0 #f5f7f9;
+  overflow-y: scroll;
 }
 
 /* Doctor Card Styling */
@@ -38,12 +49,12 @@
     box-shadow 0.2s;
 }
 .doctor-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(+4px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .selected {
-  transform: translateY(-4px);
+  transform: translateY(+4px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   outline: auto;
 }
